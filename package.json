@@ -1,0 +1,27 @@
+{
+  "name": "stmina-kitchen-print-agent",
+  "version": "1.0.0",
+  "description": "Local Windows agent for direct receipt printer + cash drawer access (St Mina Kitchen POS/KDS)",
+  "private": true,
+  "main": "src/server.js",
+  "bin": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "build:win": "pkg . --target node18-win-x64 --output dist/StMinaPrintAgent.exe"
+  },
+  "pkg": {
+    "assets": [
+      "src/printer.ps1"
+    ],
+    "targets": [
+      "node18-win-x64"
+    ]
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "@yao-pkg/pkg": "^6.20.0"
+  }
+}

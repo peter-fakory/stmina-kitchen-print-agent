@@ -1,0 +1,7 @@
+node_modules/
+dist/
+logs/
+agent-config.json
+/printer.ps1
+*.log
+.DS_Store
