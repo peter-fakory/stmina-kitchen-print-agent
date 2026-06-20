@@ -11,7 +11,7 @@ const DEFAULTS = {
   port: 9100,
   printerName: "",
   allowedOrigins: [
-    "https://stmina-kitchen-pos.pages.dev",
+    "https://stmina-pos.createfy.ca",
   ],
   cutN: 2,
   receiptCpl: 48,
