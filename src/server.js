@@ -14,10 +14,23 @@ const { ensureFirstRunSetupComplete } = require("./setup");
 let config = loadConfig();
 const app = express();
 
+// Accept the configured production origin(s) plus any *.pages.dev preview
+// deployment for this project, so feature-branch testing isn't blocked by CORS.
+const PREVIEW_ORIGIN_PATTERN = /^https:\/\/[a-z0-9-]+\.stmina-kitchen-pos\.pages\.dev$/i;
+
+function isAllowedOrigin(origin) {
+  if (!origin) return true; // non-browser tools (curl, health checks)
+  if (config.allowedOrigins.includes(origin)) return true;
+  return PREVIEW_ORIGIN_PATTERN.test(origin);
+}
+
 app.use(express.json({ limit: "1mb" }));
 app.use(
   cors({
-    origin: config.allowedOrigins,
+    origin: (origin, callback) => {
+      if (isAllowedOrigin(origin)) return callback(null, true);
+      callback(new Error(`Origin not allowed: ${origin}`));
+    },
   })
 );
 
