@@ -1,6 +1,6 @@
 {
   "name": "stmina-kitchen-print-agent",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Local Windows agent for direct receipt printer + cash drawer access (St Mina Kitchen POS/KDS)",
   "private": true,
   "main": "src/server.js",

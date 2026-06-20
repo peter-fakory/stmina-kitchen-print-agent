@@ -24,6 +24,16 @@ function isAllowedOrigin(origin) {
   return TEST_ORIGIN_PATTERN.test(origin);
 }
 
+// Chrome's Private Network Access policy sends this header on preflight
+// requests when a public HTTPS page calls a private/loopback address like
+// 127.0.0.1. Without echoing it back, the browser silently blocks the call.
+app.use((req, res, next) => {
+  if (req.headers["access-control-request-private-network"]) {
+    res.setHeader("Access-Control-Allow-Private-Network", "true");
+  }
+  next();
+});
+
 app.use(express.json({ limit: "1mb" }));
 app.use(
   cors({
