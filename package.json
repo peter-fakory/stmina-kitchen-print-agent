@@ -7,14 +7,14 @@
   "bin": "src/server.js",
   "scripts": {
     "start": "node src/server.js",
-    "build:win": "pkg . --target node18-win-x64 --output dist/StMinaPrintAgent.exe"
+    "build:win": "pkg . --target node22-win-x64 --output dist/StMinaPrintAgent.exe"
   },
   "pkg": {
     "assets": [
       "src/printer.ps1"
     ],
     "targets": [
-      "node18-win-x64"
+      "node22-win-x64"
     ]
   },
   "dependencies": {
