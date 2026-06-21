@@ -115,10 +115,11 @@ $HIGH_OFF = [byte[]](0x1B, 0x68, 0x00)
 $INIT     = [byte[]](0x1B, 0x40)
 $CUT      = [byte[]](0x1B, 0x64, [byte]$CutN)
 
-# Star Line Mode "generate pulse" (cash drawer kick-out driver) — ESC BEL.
-# NOTE: verify against your exact printer model's manual; some models use
-# ESC p m t1 t2 (Epson-compatible) instead. Override here if needed.
-$DRAWER_KICK = [byte[]](0x1B, 0x07)
+# Star Line Mode "External device 1 drive instruction" — single BEL byte (0x07).
+# Verified against Star's official Command Emulator / Line Mode spec for TSP100:
+# ESC BEL (0x1B 0x07) is a DIFFERENT command ("set pulse width for external
+# device drive" — config only, does not fire). BEL alone is the actual trigger.
+$DRAWER_KICK = [byte[]](0x07)
 
 function Get-PrinterStatusInfo {
   param([string]$Name)
