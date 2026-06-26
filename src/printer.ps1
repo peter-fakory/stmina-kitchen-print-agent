@@ -208,6 +208,19 @@ switch ($Action) {
         $outBytes.AddRange($WIDE_OFF)
         $outBytes.AddRange($EMPH_OFF)
       }
+      elseif ($line -match '^(.*)\[\[BOLD\]\](.*?)\[\[/BOLD\]\](.*)$') {
+        # Inline bold — only the marked segment is emphasized, rest of the line stays normal.
+        $before = $Matches[1]
+        $bold   = $Matches[2]
+        $after  = $Matches[3]
+
+        $outBytes.AddRange($enc.GetBytes($before))
+        $outBytes.AddRange($EMPH_ON)
+        $outBytes.AddRange($enc.GetBytes($bold))
+        $outBytes.AddRange($EMPH_OFF)
+        $outBytes.AddRange($enc.GetBytes($after))
+        $outBytes.AddRange($CRLF)
+      }
       else {
         $outBytes.AddRange($enc.GetBytes($line))
         $outBytes.AddRange($CRLF)
